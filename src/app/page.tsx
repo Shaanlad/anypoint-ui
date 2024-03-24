@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { url } from 'inspector';
 import { FormEvent } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
 
@@ -35,12 +36,7 @@ export default function Home() {
             'Content-Type': 'application/json',
           },          
         })
-        console.log(resp);
-        // .then (resp => {
-        //   console.log(resp);
-        // }).catch(e) {
-        //   console.log(e);
-        // }
+        console.log(resp.data);
     }
     catch (error) {
       console.error(error);
@@ -48,12 +44,13 @@ export default function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">      
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm ">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30"> Welcome to Anypoint Energy&nbsp; </p>        
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm  ">
+        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950"> Welcome to Anypoint Energy&nbsp; </p>        
       </div>
 
       <div className="relative flex place-items-center">      
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='items-center justify-between'>
+        {/* <form onSubmit={handleSubmit}>   */}
         <label className='block'>
           <span className="block text-sm font-medium text-slate-700"> Username </span> &nbsp;
           <input 
@@ -65,7 +62,7 @@ export default function Home() {
               focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black"
           onChange={onUserNameChange}
           />
-        </label> <br/>
+        </label> <br/><br/>
         <label className='block'>
           <span className="block text-sm font-medium text-slate-700"> Password </span> &nbsp;
           <input 
@@ -78,15 +75,24 @@ export default function Home() {
             onChange={onPasswordChange}
           />          
         </label> <br/>
-        <button 
-          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
-          >
-          Submit
-        </button>
+        {/* <Link href="/home"> */}
+          <button 
+            className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
+            >
+            Submit
+          </button>
+        {/* </Link> */}
       </form>
       </div>
 
       <div>
+        <Link href="/redirect">
+        <button 
+            className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
+            >
+            Redirect
+          </button>
+        </Link>
       </div>
     </main>
   );
