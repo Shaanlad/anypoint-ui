@@ -1,5 +1,5 @@
 
-export default function TestPage(){
+export default function RedirectPage(){
     return (
     <>
         <header>

@@ -3,53 +3,80 @@ import axios from 'axios';
 import { url } from 'inspector';
 import { FormEvent } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'
+
+function onUserNameChange(event: any) {
+  console.log(event.target.value);
+}
+
+
+function onPasswordChange(event: any) {
+  console.log(event.target.value);
+}
+
+async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+  const response = await fetch('http://localhost:3030/auth/', {
+    method: 'GET',
+  })
+  console.log('resp >> ', response);
+}
+
+const handleSubmit = async (
+  // e: React.ChangeEvent<HTMLFormElement>) => {
+  e: any) => {
+    e.preventDefault();
+
+    try {
+      const resp = await axios('http://localhost:3030/auth/', {
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },          
+      })
+      console.log(resp.data);
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
+
+const handleGetProducts = async (
+  // e: React.ChangeEvent<HTMLFormElement>) => {
+  e: any) => {
+    e.preventDefault();
+
+    try {
+      const resp = await axios('http://localhost:3030/product/', {
+        method: 'GET',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },          
+      })
+      console.log(resp.data);
+  }
+  catch (error) {
+    console.error(error);
+  }
+}
+
 
 export default function Home() {
 
-  function onUserNameChange(event: any) {
-    console.log(event.target.value);
-  }
+  const router = useRouter();
 
-  function onPasswordChange(event: any) {
-    console.log(event.target.value);
-  }
-
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
- 
-    const response = await fetch('http://localhost:3030/auth/', {
-      method: 'GET',
-    })
-    console.log('resp >> ', response);
-  }
-
-  const handleSubmit = async (
-    // e: React.ChangeEvent<HTMLFormElement>) => {
-    e: any) => {
-      e.preventDefault();
-
-      try {
-        const resp = await axios('http://localhost:3030/auth/', {
-          method: 'GET',
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-          },          
-        })
-        console.log(resp.data);
-    }
-    catch (error) {
-      console.error(error);
-    }
-  }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">      
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm  ">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950"> Welcome to Anypoint Energy&nbsp; </p>        
+        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950"> 
+          Welcome to Anypoint Energy&nbsp; 
+        </p>
       </div>
 
-      <div className="relative flex place-items-center">      
-        <form onSubmit={handleSubmit} className='items-center justify-between'>
+      <div className="relative flex place-items-center">
+        <form className='items-center justify-between'>
         {/* <form onSubmit={handleSubmit}>   */}
         <label className='block'>
           <span className="block text-sm font-medium text-slate-700"> Username </span> &nbsp;
@@ -75,24 +102,34 @@ export default function Home() {
             onChange={onPasswordChange}
           />          
         </label> <br/>
-        {/* <Link href="/home"> */}
+        <Link href="/home">
           <button 
             className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
             >
             Submit
           </button>
-        {/* </Link> */}
+        </Link>
       </form>
       </div>
 
-      <div>
-        <Link href="/redirect">
+      <div className="bg-blue-500">
+        {/* <Link href="/redirect"> Redirect </Link> */}
         <button 
-            className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
-            >
-            Redirect
-          </button>
-        </Link>
+          className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          onClick={() => router.push('/home')}>
+          Click here to read more
+      </button>
+      </div>
+
+      <div className="bg-blue-500">
+        {/* <Link 
+        className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+        href="/redirect"> Get Products </Link> */}
+        <button 
+          className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          onClick={handleGetProducts}>
+          Get Products
+      </button>
       </div>
     </main>
   );
