@@ -122,9 +122,9 @@ export default function Home() {
       </div>
 
       <div className="bg-blue-500">
-        {/* <Link 
+        <Link 
         className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-        href="/redirect"> Get Products </Link> */}
+        href="/redirect"> Test Redirect </Link>
         <button 
           className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
           onClick={handleGetProducts}>
