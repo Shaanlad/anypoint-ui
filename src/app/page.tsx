@@ -4,6 +4,56 @@ import { url } from 'inspector';
 import { FormEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation'
+import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue} from "@nextui-org/react";
+import { any } from 'prop-types';
+import { NextPageContext } from 'next'
+import { useState, useEffect } from 'react'
+
+// Page.getInitialProps = async (ctx: NextPageContext) => {
+//   const res = await fetch('http://localhost:3030/product/')
+//   const json = await res.json()
+//   console.log('json >> ', json);
+//   //return { stars: json.stargazers_count }
+// }
+
+
+const columns = [
+  {
+    key: "name",
+    label: "NAME",
+  },
+  {
+    key: "description",
+    label: "DESCRIPTION",
+  },
+  {
+    key: "price",
+    label: "PRICE",
+  }
+]
+
+function TableData() {
+  // const [data, setData] = useState(null)
+  // const [isLoading, setLoading] = useState(true)
+ 
+  useEffect(() => {
+    callGetProducts()
+  }, [])
+}
+
+const callGetProducts = () => {
+  fetch('http://localhost:3030/product/')
+      .then((res) => res.json())
+      .then((data) => {
+        // setData(data)
+        // setLoading(false)
+        console.log('TableData >> ', data)
+      })
+
+  console.log('Function called on page load');
+  // Your function logic here
+};
+
 
 function onUserNameChange(event: any) {
   console.log(event.target.value);
@@ -42,6 +92,8 @@ const handleSubmit = async (
   }
 }
 
+var rowData: any = [];
+
 const handleGetProducts = async (
   // e: React.ChangeEvent<HTMLFormElement>) => {
   e: any) => {
@@ -56,6 +108,8 @@ const handleGetProducts = async (
         },          
       })
       console.log(resp.data);
+      rowData = resp.data;
+      console.log('rowData >> ', rowData);
   }
   catch (error) {
     console.error(error);
@@ -75,9 +129,24 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="relative flex place-items-center">
+      <div className='bg-blue-500 text-white'>
+        <Table aria-label="Example table with dynamic content">
+        <TableHeader columns={columns}>
+          {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+        </TableHeader>
+          <TableBody items={rowData}>
+            {(item: any) => (
+              <TableRow key={item.key}>
+                {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+                {rowData}
+              </TableRow>
+            )}            
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* <div className="relative flex place-items-center">
         <form className='items-center justify-between'>
-        {/* <form onSubmit={handleSubmit}>   */}
         <label className='block'>
           <span className="block text-sm font-medium text-slate-700"> Username </span> &nbsp;
           <input 
@@ -110,10 +179,9 @@ export default function Home() {
           </button>
         </Link>
       </form>
-      </div>
+      </div> 
 
       <div className="bg-blue-500">
-        {/* <Link href="/redirect"> Redirect </Link> */}
         <button 
           className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
           onClick={() => router.push('/home')}>
@@ -130,7 +198,8 @@ export default function Home() {
           onClick={handleGetProducts}>
           Get Products
       </button>
-      </div>
+      </div> */}
+
     </main>
   );
 }
