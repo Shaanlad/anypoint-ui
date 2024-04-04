@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import axios from 'axios';
 import { url } from 'inspector';
 import { FormEvent } from 'react';
@@ -33,26 +33,40 @@ const columns = [
 ]
 
 function TableData() {
-  // const [data, setData] = useState(null)
+  const [data, setData] = useState(null)
   // const [isLoading, setLoading] = useState(true)
  
   useEffect(() => {
-    callGetProducts()
-  }, [])
-}
-
-const callGetProducts = () => {
-  fetch('http://localhost:3030/product/')
+    fetch('http://localhost:3030/product/')
       .then((res) => res.json())
       .then((data) => {
-        // setData(data)
+        setData(data)
         // setLoading(false)
-        console.log('TableData >> ', data)
-      })
+        console.log('products >> ', data)
+    })
+  }, [])
+}
+// let productsArr: any = [];
 
-  console.log('Function called on page load');
-  // Your function logic here
-};
+// async function callGetProducts() {
+//   const resp = await fetch('http://localhost:3030/product/')
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setData(data)
+//         setLoading(false)
+//         // console.log('TableData >> ', data)
+//       })
+
+  //     const resp = await axios('http://localhost:3030/product/', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Access-Control-Allow-Origin': '*',
+  //         'Content-Type': 'application/json',
+  //       },          
+  //     })
+  // console.log('Function called on page load >> ', resp.data);  
+  // return resp.data;
+// };
 
 
 function onUserNameChange(event: any) {
@@ -116,10 +130,18 @@ const handleGetProducts = async (
   }
 }
 
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+}
 
 export default function Home() {
 
-  const router = useRouter();
+  // const router = useRouter();
+  // const products: any = Object.entries(callGetProducts());
+  // console.log('products >> ', products);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -129,8 +151,14 @@ export default function Home() {
         </p>
       </div>
 
-      <div className='bg-blue-500 text-white'>
-        <Table aria-label="Example table with dynamic content">
+      {/* <div className='bg-blue-500 text-black items-center'>
+        <ul>
+          {products.map((product: any, index: number) => {
+            <li key={index}> {product?.name}</li>
+          })}
+        </ul> */}
+
+        {/* <Table aria-label="Example table with dynamic content">
         <TableHeader columns={columns}>
           {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
         </TableHeader>
@@ -142,10 +170,11 @@ export default function Home() {
               </TableRow>
             )}            
           </TableBody>
-        </Table>
-      </div>
+        </Table> 
 
-      {/* <div className="relative flex place-items-center">
+      </div> */}
+
+      <div className="relative flex place-items-center">
         <form className='items-center justify-between'>
         <label className='block'>
           <span className="block text-sm font-medium text-slate-700"> Username </span> &nbsp;
@@ -171,7 +200,7 @@ export default function Home() {
             onChange={onPasswordChange}
           />          
         </label> <br/>
-        <Link href="/home">
+        <Link href="/redirect">
           <button 
             className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
             >
@@ -179,26 +208,26 @@ export default function Home() {
           </button>
         </Link>
       </form>
-      </div> 
+      </div>
 
-      <div className="bg-blue-500">
+      {/* <div className="bg-blue-500">
         <button 
           className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
           onClick={() => router.push('/home')}>
           Click here to read more
       </button>
-      </div>
+      </div>  */}
 
       <div className="bg-blue-500">
         <Link 
         className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
         href="/redirect"> Test Redirect </Link>
-        <button 
+        {/* <button 
           className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
           onClick={handleGetProducts}>
           Get Products
-      </button>
-      </div> */}
+      </button> */}
+      </div> 
 
     </main>
   );
