@@ -45,36 +45,25 @@ export default function Home() {
           Welcome to Anypoint Energy&nbsp; 
         </p>
       </div>
-
-      {/* <div className='bg-blue-500 text-black items-center'>
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm "> 
         <ul>
-          {products.map((product: any, index: number) => {
-            <li key={index}> {product?.name}</li>
-          })}
+          {data && data.map((item: any, index: number) => (
+            <li key={index} className='fixed left-0 top-0 flex w-full justify-right border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950 shadow-lg shadow-blue-500/50'>
+              <span>
+                <p>
+                  Product Name - {item.name}
+                </p>
+                <p>
+                  Product Description - {item.description}
+                </p>
+                <p>
+                  Product Price - ${item.price}
+                </p>
+              </span>
+            </li> )
+          )}
         </ul>
-      </div> */}
-     
-      <div className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950">
-          {/* {products.map((item: any) => 
-            <div key={item.id}> {item.name} </div>
-          )} */}
-              <ul>
-                {data && data.map((item: any, index: number) => (
-                  <div key={index} className='border-t border-b border-gray-300 z-10 max-w-5xl w-full items-center justify-between font-mono text-m '>
-                  {/* <div key={index} className='  fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950
-                     border-b border-gray-300 z-10 max-w-5xl w-full items-center text-m'> */}
-                    <span className='flex'>
-                    <p>
-                      Product Name -&nbsp;
-                    </p>
-                    <p>
-                    {item.name}
-                    </p> 
-                    </span> <br></br>
-                  </div> )
-                )}
-              </ul>
-        </div>
+      </div>
     </main>
   );
  }
