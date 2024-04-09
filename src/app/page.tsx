@@ -11,7 +11,6 @@ import { useState, useEffect } from 'react'
 
 export default function Home() {
 
-// function TableData() {
   const [data, setData] = useState(null)
   const [isLoading, setLoading] = useState(true)
  
@@ -27,28 +26,22 @@ export default function Home() {
 
   if (isLoading) return <p>Loading...</p>
   if (!data) return <p>No data</p>
-  // return data;
-  // return (
-  //   <div>
-  //     <h1>{data}</h1>
-  //   </div>
-  // )
-
+  
   // export default function Home() {
   // const router = useRouter();
   // const products: any = Object.entries(TableData());
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm  ">
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-sans text-sm  ">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950"> 
           Welcome to Anypoint Energy&nbsp; 
         </p>
       </div>
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm "> 
+      <div className="z-10 max-w-5xl items-center justify-between font-sans text-sm "> 
         <ul>
           {data && data.map((item: any, index: number) => (
-            <li key={index} className='fixed left-0 top-0 flex w-full justify-right border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950 shadow-lg shadow-blue-500/50'>
+            <li key={index} className='text-black	fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300  pb-6 pt-8 backdrop-blur-2xl dark:bg-yellow-800/30 lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg '>
               <span>
                 <p>
                   Product Name - {item.name}
@@ -67,4 +60,3 @@ export default function Home() {
     </main>
   );
  }
-// }
