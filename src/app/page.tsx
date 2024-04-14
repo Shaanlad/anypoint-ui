@@ -1,52 +1,46 @@
 'use client'
-import Link from 'next/link';
 import { FormEvent } from 'react';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+
+const BASE_URL = 'http://localhost:3030';
 
 export default function Home() {
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const router = useRouter();
 
-  const handleInput = (e : FormEvent<HTMLFormElement>) => {
-    const fieldName = e.target.name;
-    const fieldValue = e.target.value;
-  
-    setFormData((prevState) => ({
-      ...prevState,
-      [fieldName]: fieldValue
-    }));
-  }
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
-  // function onUserNameChange(event: any) {
-  //   console.log(event.target.value);
-  // }
-
-  // function onPasswordChange(event: any) {
-  //   console.log(event.target.value);
-  // }
-
-  const OnSubmit = async (
-    e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      console.log('Inside Submit')
-
-      const formData = new FormData(e.currentTarget)
-      console.log('formData >> ', formData);
-
-      const response = await fetch('/api/login', {
+    try {
+      const response = await  fetch(`${BASE_URL}/auth/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ email, password }),
       });
-  
-      const data = await response.json();
-      console.log(data);
-  }
+      console.log('Form submitted >> ', response);
+      // Handle success response as needed
+      if(response.status == 201) {
+        router.push('/redirect');
+      } else {
+        console.log('Error');
+      }
+      
+    } catch (error) {
+      // setError('Error submitting form. Please try again.');
+      console.log('Error recvd');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -55,17 +49,12 @@ export default function Home() {
           Welcome to Anypoint Energy&nbsp;
         </p>
       </div>
-      <div className="bg-blue-500">
-        <Link 
-            className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-            href="/redirect"> View Products
-        </Link>
-      </div>
+      
 
       <div className="relative flex place-items-center">      
-        <form onSubmit={OnSubmit}>
+        <form onSubmit={handleSubmit}>
         <label className='block'>
-          <span className="block text-sm font-medium text-slate-700"> Username </span> &nbsp;
+          <span className="block text-sm font-medium text-slate-700"> Email </span> &nbsp;
           <input 
             type="text" 
             className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
@@ -74,8 +63,8 @@ export default function Home() {
               invalid:border-pink-500 invalid:text-pink-600
               focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black"
               name="email"
-              value={formData.email}
-              onChange={handleInput}          
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}         
           />
         </label> <br/>
         <label className='block'>
@@ -88,8 +77,8 @@ export default function Home() {
               invalid:border-pink-500 invalid:text-pink-600
               focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
               name="password"
-              value={formData.password}
-              onChange={handleInput}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
           />          
         </label> <br/>
         <button 
@@ -99,6 +88,13 @@ export default function Home() {
         </button>
       </form>
       </div> 
+
+      {/* <div className="bg-blue-500">
+        <Link 
+            className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
+            href="/redirect"> View Products
+        </Link>
+      </div> */}
     </main>
   );
  }
