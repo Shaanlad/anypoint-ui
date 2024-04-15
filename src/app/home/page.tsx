@@ -2,8 +2,8 @@
 'use client'
 import Link from 'next/link';
 import { useState, useEffect } from 'react'
-import Footer from '../footer';
-import Header from '../header';
+import Header from '../components/header';
+import Footer from '../components/footer';
 
 export default function Home(){
 
@@ -30,7 +30,7 @@ export default function Home(){
                 <Header />
                 <br/><br/>
 
-                <div className="bg-blue-500 md:float-right">
+                <div className="bg-blue-500 float-right">
                     <Link 
                         className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
                         href="/"> Logout
@@ -43,7 +43,7 @@ export default function Home(){
                     {data && data.map((item: any, index: number) => (
                         <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-zinc-800/30 lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-blue-600/50 lg:rounded-xl'>
                         <span>
-                            <p>
+                            <p className='text-base font-semibold'>
                                 {item.name}
                             </p>
                             <p>

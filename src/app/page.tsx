@@ -2,8 +2,8 @@
 import { FormEvent } from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Footer from './footer';
-import Header from './header';
+import Header from './components/header';
+import Footer from './components/footer';
 
 const BASE_URL = 'http://localhost:3030';
 
@@ -47,7 +47,7 @@ export default function LandingPage() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">      
       <Header />
 
-      <div className="relative flex place-items-center font-mono">
+      <div className="relative flex place-items-center font-mono text-center">
         <form onSubmit={handleSubmit}>
         <div className='block'>
           <span className="block text-sm font-medium text-slate-700"> 
