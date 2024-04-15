@@ -2,10 +2,12 @@
 import { FormEvent } from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Footer from './footer';
+import Header from './header';
 
 const BASE_URL = 'http://localhost:3030';
 
-export default function Home() {
+export default function LandingPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,11 +31,10 @@ export default function Home() {
       console.log('Form submitted >> ', response);
       // Handle success response as needed
       if(response.status == 201) {
-        router.push('/redirect');
+        router.push('/home');
       } else {
         console.log('Error');
-      }
-      
+      }      
     } catch (error) {
       // setError('Error submitting form. Please try again.');
       console.log('Error recvd');
@@ -43,18 +44,14 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-sans text-sm  ">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-sky-950"> 
-          Welcome to Anypoint Energy&nbsp;
-        </p>
-      </div>
-      
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">      
+      <Header />
 
-      <div className="relative flex place-items-center">      
+      <div className="relative flex place-items-center font-mono">
         <form onSubmit={handleSubmit}>
-        <label className='block'>
-          <span className="block text-sm font-medium text-slate-700"> Email </span> &nbsp;
+        <div className='block'>
+          <span className="block text-sm font-medium text-slate-700"> 
+          <p> Email </p> 
           <input 
             type="text" 
             className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
@@ -65,10 +62,13 @@ export default function Home() {
               name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}         
-          />
-        </label> <br/>
-        <label className='block'>
-          <span className="block text-sm font-medium text-slate-700"> Password </span> &nbsp;
+          />          
+          </span>          
+        </div> <br/>
+
+        <div className='block'>
+          <span className="block text-sm font-medium text-slate-700"> 
+          <p> Password </p> 
           <input 
             type="text" 
             className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
@@ -79,10 +79,12 @@ export default function Home() {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-          />          
-        </label> <br/>
+          />  
+          </span>
+        </div> <br/>
+
         <button 
-          className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
+          className="bg-blue-500 hover:bg-blue-400 text-white font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
           >
           Submit
         </button>
@@ -95,6 +97,8 @@ export default function Home() {
             href="/redirect"> View Products
         </Link>
       </div> */}
+
+      <Footer />
     </main>
   );
  }
