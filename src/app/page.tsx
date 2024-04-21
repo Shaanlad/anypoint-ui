@@ -33,7 +33,7 @@ export default function LandingPage() {
       if(response.status == 201) {
         router.push('/home');
       } else {
-        console.log('Error');
+        console.log('Incorrect Password or Error Encountered');
       }      
     } catch (error) {
       // setError('Error submitting form. Please try again.');
