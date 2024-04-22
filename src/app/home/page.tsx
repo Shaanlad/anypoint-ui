@@ -64,7 +64,7 @@ export default function Home(){
                 <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm"> 
                     <ul>
                     {products && products.map((item: any, index: number) => (
-                        <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-zinc-800/20 lg:rounded-xl my-8'>
+                        <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-amber-300 lg:rounded-xl my-6'>
                             <span>
                                 <p className='text-base font-semibold'>
                                     {item.name}

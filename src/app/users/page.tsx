@@ -50,18 +50,18 @@ export default function Home(){
                 <br/><br/><br/><br/>
 
                 <div className="z-10 items-center justify-between font-mono text-sm w-6/12"> 
-                    <ul role="list" className="p-6 divide-y divide-slate-200 ">
+                    <ul role="list" className="p-6 divide-y divide-slate-300 ">
                     {users && users.map((item: any, index: number) => (
                         <li key={index} className="flex py-4 first:pt-0 last:pb-0 ">
                             <span className="ml-3 overflow-hidden">
-                                <p className="text-sm font-medium text-slate-900">
-                                    {item.firstname} {item.lastname}
+                                <p className="text-sm font-medium text-red-500">
+                                    Name - {item.firstname} {item.lastname}
                                 </p>
                                 <p className="text-sm text-slate-500 truncate">
-                                    ${item.email}
+                                    Email - ${item.email}
                                 </p>
                                 <p className="text-sm font-medium text-slate-900">
-                                    Admin - {item.isAdmin}
+                                    Admin - {item.isAdmin} ⭐️
                                 </p>
                             </span>
                         </li> 
