@@ -29,7 +29,6 @@ export default function LandingPage() {
         body: JSON.stringify({ email, password }),
       });
       console.log('Form submitted >> ', response);
-      // Handle success response as needed
       if(response.status == 201) {
         router.push('/home');
       } else {
@@ -37,7 +36,7 @@ export default function LandingPage() {
       }      
     } catch (error) {
       // setError('Error submitting form. Please try again.');
-      console.log('Error recvd');
+      console.log('Error submitting form. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -84,19 +83,12 @@ export default function LandingPage() {
         </div> <br/>
 
         <button 
-          className="bg-blue-500 hover:bg-blue-400 text-white font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" 
+          className="bg-blue-500 hover:bg-green-600 text-white font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-green-500 rounded" 
           >
           Submit
         </button>
       </form>
       </div> 
-
-      {/* <div className="bg-blue-500">
-        <Link 
-            className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
-            href="/redirect"> View Products
-        </Link>
-      </div> */}
 
       <Footer />
     </main>

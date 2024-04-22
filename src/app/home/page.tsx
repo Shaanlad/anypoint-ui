@@ -7,21 +7,21 @@ import Footer from '../components/footer';
 
 export default function Home(){
 
-    const [data, setData] = useState(null)
+    const [products, setProducts] = useState(null)
     const [isLoading, setLoading] = useState(true)
  
     useEffect(() => {
     fetch('http://localhost:3030/product/')
         .then((res) => res.json())
-        .then((data) => {
-        setData(data)
+        .then((products) => {
+        setProducts(products)
         setLoading(false)
-        console.log('products >> ', data)
+        console.log('products >> ', products)
     })
     }, [])
 
     if (isLoading) return <p>Loading...</p>
-    if (!data) return <p>No data</p>
+    if (!products) return <p>No products</p>
     
     return (
         <>
@@ -29,31 +29,54 @@ export default function Home(){
                 <br/>
                 <Header />
                 <br/><br/>
+                <div className='w-8/12'>                    
+                    <span className='float-right'>
+                        <Link 
+                            className="bg-blue-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-red-500 rounded "
+                            href="/"> Logout
+                        </Link>
+                    </span>
+                    <span className='float-right'>
+                        &nbsp;&nbsp;&nbsp;
+                    </span>
+                    <span className='float-right'>
+                        <Link 
+                            className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
+                            href="/users"> User Listing
+                        </Link>
+                    </span>
+                </div> <br/><br/>
 
-                <div className="bg-blue-500 float-right">
+                {/* <div className="bg-blue-500 float-right">
                     <Link 
                         className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
                         href="/"> Logout
                     </Link>
-                </div>
+                </div> <br></br>
+                <div className="bg-blue-500 float-right">
+                    <Link 
+                        className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
+                        href="/users"> User Listing
+                    </Link>
+                </div> */}
                 <br/><br/>
 
                 <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm"> 
                     <ul>
-                    {data && data.map((item: any, index: number) => (
-                        <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-zinc-800/20 lg:rounded-xl'>
-                        <span>
-                            <p className='text-base font-semibold'>
-                                {item.name}
-                            </p>
-                            <p>
-                                {item.description}
-                            </p>
-                            <p>
-                                ${item.price}
-                            </p>
-                        </span>
-                        </li> 
+                    {products && products.map((item: any, index: number) => (
+                        <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-zinc-800/20 lg:rounded-xl my-8'>
+                            <span>
+                                <p className='text-base font-semibold'>
+                                    {item.name}
+                                </p>
+                                <p>
+                                    {item.description}
+                                </p>
+                                <p>
+                                    ${item.price}
+                                </p>
+                            </span>
+                        </li>
                         )
                     )}
                     </ul>
