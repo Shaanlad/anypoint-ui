@@ -45,6 +45,12 @@ export default function Home(){
                             href="/users"> User Listing
                         </Link>
                     </span>
+                    <span className='float-left'>
+                        <Link 
+                            className="bg-green-500 hover:bg-green-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded "
+                            href="/users"> Enroll Now
+                        </Link>
+                    </span>
                 </div> <br/><br/>
 
                 {/* <div className="bg-blue-500 float-right">
