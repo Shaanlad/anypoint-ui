@@ -33,7 +33,7 @@ export default function Home(){
                 <div className='w-8/12'>                    
                     <span className='float-right'>
                         <Link 
-                            className="bg-blue-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-red-500 rounded "
+                            className="bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded "
                             href="/"> Logout
                         </Link>
                     </span>
