@@ -58,10 +58,10 @@ export default function Home(){
                                     Name - {item.firstname} {item.lastname}
                                 </p>
                                 <p className="text-sm text-slate-500 truncate">
-                                    Email - ${item.email}
+                                    Email - {item.email}
                                 </p>
                                 <p className="text-sm font-medium text-slate-900">
-                                    Admin - {item.isAdmin} ⭐️
+                                    Admin - {item.isAdmin ? '⭐️' : '👎🏻'}
                                 </p>
                             </span>
                         </li> 
