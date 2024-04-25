@@ -2,8 +2,8 @@
 import { FormEvent } from 'react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Header from './components/header';
-import Footer from './components/footer';
+import Header from './_components/header';
+import Footer from './_components/footer';
 
 const BASE_URL = 'http://localhost:3030';
 

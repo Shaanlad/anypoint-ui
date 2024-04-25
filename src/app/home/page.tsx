@@ -2,8 +2,8 @@
 'use client'
 import Link from 'next/link';
 import { useState, useEffect } from 'react'
-import Header from '../components/header';
-import Footer from '../components/footer';
+import Header from '../_components/header';
+import Footer from '../_components/footer';
 
 export default function Home(){
 
