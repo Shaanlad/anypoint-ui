@@ -43,7 +43,7 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">      
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 ">      
       <Header />
 
       <div className="relative flex place-items-center font-mono text-center">

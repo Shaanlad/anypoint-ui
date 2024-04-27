@@ -1,14 +1,25 @@
 
 'use client'
 import Link from 'next/link';
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import { FormEvent } from 'react';
 import Header from '../_components/header';
 import Footer from '../_components/footer';
+import Modal from '../_components/modal';
+
+const BASE_URL = 'http://localhost:3030';
 
 export default function Home(){
 
     const [products, setProducts] = useState(null)
     const [isLoading, setLoading] = useState(true)
+    const [showModal, setshowModal] = useState(false)
+    const [error, setError] = useState(null);
+
+    const [productName, setProductName] = useState('');
+    const [productDescription, setProductDescription] = useState('');
+    const [productPrice, setProductPrice] = useState('');
+
  
     useEffect(() => {
     fetch('http://localhost:3030/product/')
@@ -19,6 +30,38 @@ export default function Home(){
         console.log('products >> ', products)
     })
     }, [])
+
+
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+    
+        try {
+          const response = await  fetch(`${BASE_URL}/product`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                name: productName, 
+                description: productDescription, 
+                price: productPrice }),
+          });
+          console.log('Form submitted >> ', response);
+          if(response.status == 201) {
+            console.log('Item inserted');
+            setshowModal(false);
+          } else {
+            console.log('Error Encountered. Status ! 200');
+          }      
+        } catch (error) {
+          console.log('Error inserting item. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+      };
+    
 
     if (isLoading) return <p>Loading...</p>
     if (!products) return <p>No products</p>
@@ -46,25 +89,85 @@ export default function Home(){
                         </Link>
                     </span>
                     <span className='float-left'>
-                        <Link 
+                        <button 
                             className="bg-green-500 hover:bg-green-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded "
-                            href="/users"> Enroll Now
-                        </Link>
+                            onClick={() => setshowModal(true)}
+                            >
+                            Create New Product
+                        </button>
                     </span>
                 </div> <br/><br/>
 
-                {/* <div className="bg-blue-500 float-right">
-                    <Link 
-                        className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
-                        href="/"> Logout
-                    </Link>
-                </div> <br></br>
-                <div className="bg-blue-500 float-right">
-                    <Link 
-                        className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
-                        href="/users"> User Listing
-                    </Link>
-                </div> */}
+                { showModal ? (
+                    <>
+                        {/* <Modal /> */}
+                        <div className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg lg:rounded-xl my-6'>
+                            
+                        <div className="relative flex font-mono text-left">
+                            <form onSubmit={handleSubmit}>
+                                <div className='block'>
+                                <span className="block text-sm font-medium text-slate-700"> 
+                                <p> Name </p> 
+                                <input 
+                                    type="text" 
+                                    className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                                    disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                                    invalid:border-pink-500 invalid:text-pink-600
+                                    focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black"
+                                    value={productName}
+                                    onChange={(e) => setProductName(e.target.value)}        
+                                />          
+                                </span>          
+                                </div> <br/>
+
+                                <div className='block'>
+                                <span className="block text-sm font-medium text-slate-700"> 
+                                <p> Description </p> 
+                                <textarea 
+                                    className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                                    disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                                    invalid:border-pink-500 invalid:text-pink-600
+                                    focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
+                                    value={productDescription}
+                                    onChange={(e) => setProductDescription(e.target.value)}
+                                />  
+                                </span>
+                                </div> <br/>
+
+                                <div className='block'>
+                                <span className="block text-sm font-medium text-slate-700"> 
+                                <p> Price </p> 
+                                <input 
+                                    type="textbox" 
+                                    className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                                    focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+                                    disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
+                                    invalid:border-pink-500 invalid:text-pink-600
+                                    focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
+                                    value={productPrice}
+                                    onChange={(e) => setProductPrice(e.target.value)}
+                                />  
+                                </span>
+                                </div> <br/>
+
+                                {/* <button 
+                                className="bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded"
+                                onClick={() => setshowModal(false)}
+                                >
+                                Close
+                                </button> &nbsp;&nbsp; */}
+                                <button 
+                                className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
+                                >
+                                Submit
+                                </button>
+                            </form>
+                        </div>
+                    </div>  
+                    </>
+                    ) : null }
                 <br/><br/>
 
                 <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm"> 
@@ -86,7 +189,8 @@ export default function Home(){
                         )
                     )}
                     </ul>
-                </div> <br/><br/>
+                </div> <br/><br/> 
+                            
                 <Footer />
             </main>            
         </>
