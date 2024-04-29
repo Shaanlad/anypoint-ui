@@ -46,6 +46,13 @@ export default function Home(){
                             href="/home"> Product Listing
                         </Link>
                     </span>
+                    <span className='float-left'>
+                        <button 
+                            className="bg-green-500 hover:bg-green-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-green-700 hover:border-green-500 rounded "
+                            >
+                            Create New User
+                        </button>
+                    </span>
                 </div> 
                 <br/><br/><br/><br/>
 
@@ -60,9 +67,10 @@ export default function Home(){
                                 <p className="text-sm text-slate-500 truncate">
                                     Email - {item.email}
                                 </p>
+                                {item.isAdmin ? 
                                 <p className="text-sm font-medium text-slate-900">
-                                    Admin - {item.isAdmin ? '⭐️' : '👎🏻'}
-                                </p>
+                                    Admin - {'⭐️'}
+                                </p> : null }
                             </span>
                         </li> 
                         )
