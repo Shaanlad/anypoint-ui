@@ -60,7 +60,7 @@ export default function Home(){
         } finally {
             setLoading(false);
         }
-      };
+    };
     
 
     if (isLoading) return <p>Loading...</p>
