@@ -84,6 +84,15 @@ export default function Home(){
                     </span>
                     <span className='float-right'>
                         <Link 
+                            className="bg-amber-500 hover:bg-amber-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-amber-700 hover:border-amber-500 hover:text-black rounded"
+                            href="/enroll"> Enroll Today!
+                        </Link>
+                    </span>
+                    <span className='float-right'>
+                        &nbsp;&nbsp;&nbsp;
+                    </span>
+                    <span className='float-right'>
+                        <Link 
                             className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
                             href="/users"> User Listing
                         </Link>
@@ -164,6 +173,12 @@ export default function Home(){
                                 Submit
                                 </button>
                             </form>
+                            <button 
+                                className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
+                                onClick={() => setshowModal(false)}
+                                >
+                                Cancel
+                            </button>
                         </div>
                     </div>  
                     </>
