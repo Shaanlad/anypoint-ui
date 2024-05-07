@@ -172,39 +172,43 @@ export default function Home(){
                                 >
                                 Submit
                                 </button>
+                                &nbsp;&nbsp;
+                                <button 
+                                    className="bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded "
+                                    onClick={() => setshowModal(false)}
+                                    >
+                                    Cancel
+                                </button>
                             </form>
-                            <button 
-                                className="bg-blue-500 hover:bg-blue-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded "
-                                onClick={() => setshowModal(false)}
-                                >
-                                Cancel
-                            </button>
                         </div>
-                    </div>  
+                    </div>
                     </>
                     ) : null }
                 <br/><br/>
 
-                <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm"> 
-                    <ul>
-                    {products && products.map((item: any, index: number) => (
-                        <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-amber-300 lg:rounded-xl my-6'>
-                            <span>
-                                <p className='text-base font-semibold'>
-                                    {item.name}
-                                </p>
-                                <p>
-                                    {item.description}
-                                </p>
-                                <p>
-                                    ${item.price}
-                                </p>
-                            </span>
-                        </li>
-                        )
-                    )}
-                    </ul>
-                </div> <br/><br/> 
+                {showModal ? null : 
+                    <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm"> 
+                        <ul>
+                        {products && products.map((item: any, index: number) => (
+                            <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-amber-300 lg:rounded-xl my-6'>
+                                <span>
+                                    <p className='text-base font-semibold'>
+                                        {item.name}
+                                    </p>
+                                    <p>
+                                        {item.description}
+                                    </p>
+                                    <p>
+                                        ${item.price}
+                                    </p>
+                                </span>
+                            </li>
+                            )
+                        )}
+                        </ul>
+                     </div> }
+
+                 <br/><br/> 
                             
                 <Footer />
             </main>            
