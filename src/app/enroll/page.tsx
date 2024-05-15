@@ -15,12 +15,30 @@ export default function Enroll(){
     const [ssn, setSSN] = useState('');
     const [zipCode, setZipCode] = useState('');
     const [cusSwitchOrMove, setCusSwitchOrMove] = useState('');
-    const [cusSwitch, setCusSwitch] = useState('');
+    const [cusSwitch, setCusSwitch] = useState(false);
+    const [cusStdSwitch, setCusStdSwitch] = useState(false);
     const [svcStartDatePicker, setSvcStartDatePicker] = useState(false);
 
-    const onSwitchOrMoveChange = (evt: string) => {
-        console.log(evt);
-        if (cusSwitchOrMove === 'moving' || cusSwitch === 'specificDate') {
+    const onSwitchOrMoveChange = (selectedVal: string) => {
+        setSvcStartDatePicker(false);
+        setCusSwitch(false);
+
+        if (selectedVal === 'Moving') {
+            setSvcStartDatePicker(true);
+        } else if (selectedVal === 'Switching' ) { 
+            setCusSwitch(true);
+        }
+    }
+
+    const onSwitchChange = (selectedVal: string) => {
+        setCusSwitch(false);
+        setCusStdSwitch(false);
+
+        if (selectedVal === 'Standard Switch Date' ) {
+            setCusSwitch(true)
+            setCusStdSwitch(true);
+        } else if (selectedVal === 'Specific Date') {
+            setCusSwitch(true)
             setSvcStartDatePicker(true);
         }
     }
@@ -87,15 +105,15 @@ export default function Enroll(){
                                 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black"
                                 onChange={(e) => onSwitchOrMoveChange(e.target.value)}>
                                     <option>Choose One</option>
-                                    <option>I am switching</option>
-                                    <option>I am moving</option>
+                                    <option>Switching</option>
+                                    <option>Moving</option>
                             </select>
                         </span>
                     </div> <br/>
 
 
 
-                    {(cusSwitchOrMove === 'switching') ? ( 
+                    { cusSwitch ? ( 
                         <>
                             <div className='block'>
                                 <span className="block flex text-sm font-medium text-slate-700"> 
@@ -108,10 +126,10 @@ export default function Enroll(){
                                         disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                         invalid:border-pink-500 invalid:text-pink-600
                                         focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black"
-                                        onChange={(e) => setCusSwitch(e.target.value)}>
-                                            <option value="">Choose One</option>
-                                            <option value="standardSwitch">Standard Switch Date</option>
-                                            <option value="specificDate">Specific Date</option>
+                                        onChange={(e) => onSwitchChange(e.target.value)}>
+                                            <option>Choose One</option>
+                                            <option>Standard Switch Date</option>
+                                            <option>Specific Date</option>
                                     </select>
                                 </span>
                             </div>
@@ -120,7 +138,7 @@ export default function Enroll(){
 
                     <br/>
 
-                    {cusSwitch === 'standardSwitch' ? ( 
+                    { cusStdSwitch ? ( 
                         <>
                             <div className='block text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg lg:rounded-xl my-6'>
                                 <span className="block text-sm font-medium text-slate-700">
