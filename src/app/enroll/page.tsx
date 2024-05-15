@@ -25,8 +25,12 @@ export default function Enroll(){
 
         if (selectedVal === 'Moving') {
             setSvcStartDatePicker(true);
-        } else if (selectedVal === 'Switching' ) { 
+        } else if (selectedVal === 'Switching') { 
             setCusSwitch(true);
+        } else if (selectedVal === 'Choose One') {
+            setSvcStartDatePicker(false);
+            setCusSwitch(false);
+            setCusStdSwitch(false);
         }
     }
 
@@ -44,7 +48,7 @@ export default function Enroll(){
     }
 
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <main className="w-full flex min-h-screen flex-col items-center justify-between p-24">
             <br/>
             <Header />
 
@@ -171,12 +175,12 @@ export default function Enroll(){
                         ) : null }    
                     <br/><br/>
 
-                    <div className='block flex'>
+                    <div className='block flex w-full'>
                         <span className="block text-sm font-medium text-slate-700"> 
                         <p> First Name </p> 
                         <input 
                         type="text" 
-                        className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+                        className="mt-1 block px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
                             focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
                             disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                             invalid:border-pink-500 invalid:text-pink-600
