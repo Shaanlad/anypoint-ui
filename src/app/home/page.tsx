@@ -38,7 +38,7 @@ export default function Home(){
         setError(null);
     
         try {
-          const response = await  fetch(`${BASE_URL}/product`, {
+          const response = await fetch(`${BASE_URL}/product`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
