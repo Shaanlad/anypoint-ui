@@ -315,7 +315,7 @@ export default function Enroll(){
                         </span>
                     </div> <br/><br/> */}
 
-                    <div className='block'>
+                    {/* <div className='block'>
                         <span className="block text-sm font-medium text-slate-700"> 
                             <p> Address </p> 
                             <input 
@@ -330,12 +330,20 @@ export default function Enroll(){
                                 onChange={(e) => setAddress(e.target.value)}
                             />  
                         </span>
-                    </div> <br/>
+                    </div> <br/> */}
 
-                    <button 
+                    {/* <button 
                         className="bg-blue-500 hover:bg-green-600 text-white font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-green-500 rounded" 
                         >
                         Save & Continue
+                    </button>
+                    &nbsp;&nbsp;&nbsp; */}
+                    <button 
+                        className="bg-red-500 hover:bg-red-600 text-white font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" 
+
+                        // bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded
+                        >
+                        Proceed to Payment
                     </button>
                 </form>
             </div>
