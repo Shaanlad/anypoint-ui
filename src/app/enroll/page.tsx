@@ -343,7 +343,7 @@ export default function Enroll(){
 
                         // bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded
                         >
-                        Proceed to Payment
+                        Proceed to Make Payment
                     </button>
                 </form>
             </div>
