@@ -31,7 +31,7 @@ export default function CheckoutForm() {
         // Make sure to change this to your payment completion page
         return_url: `${BASE_URL}/success`,
       },
-      redirect: "if_required",
+    //   redirect: "if_required",
     });
 
     if (error.type === "card_error" || error.type === "validation_error") {
