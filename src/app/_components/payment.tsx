@@ -1,21 +1,46 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useEffect, useState } from "react";
+import CheckoutForm from "./checkoutForm";
+// import CheckoutForm from "../checkout/page";
 
-const Payment = () => {
+const Payment = (props) => {
+    const [stripePromise, setStripePromise] = useState(null);
+    const [clientSecret, setClientSecret] = useState("")
+
+    const BASE_URL = 'http://localhost:3030';
+
+    useEffect(() => {        
+        fetch(`${BASE_URL}/stripe`)
+        .then(async(resp) => {
+                const { publishableKey } = await resp.json();
+                setStripePromise(loadStripe(publishableKey));
+            });
+    }, []);
+
+
+    useEffect(() => {
+        fetch(`${BASE_URL}/stripe/create-payment-intent`, {
+            method: 'POST',
+            body: JSON.stringify({})
+        })
+        .then(async(resp) => {
+                const { clientSecret } = await resp.json();
+                setClientSecret(clientSecret);
+            });
+    }, []);
+
+
+
     return (
         <>
-            <h2>Payment Block</h2>
+            {clientSecret && stripePromise && (
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                    <CheckoutForm />
+                </Elements>
+            )}
         </>    
     )
 }
 
-const PaymentGtwy = () => {
-    const stripePromise = loadStripe('pk_test_scwYDGCgb9qeXRH1wmuLxkrq001lJo8Cze');
-    return (
-        <Elements stripe={stripePromise}>
-            <Payment />
-        </Elements>
-    );
-}
-
-export default PaymentGtwy;
+export default Payment;
