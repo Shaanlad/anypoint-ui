@@ -187,8 +187,12 @@ export default function Home(){
                 <br/><br/>
 
                 {showModal ? null : 
-                    <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm lg:border w-full flex"> 
-                        <div className='w-1/2 lg:border text-black'>Hey there</div>
+                    <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm lg:border w-full flex relative"> 
+                        <div className='w-1/2 lg:border text-black'>
+                            <p className='absolute inset-x-0 top-0 w-1/2 text-3xl decoration-sky-600 hover:decoration-blue-400'>
+                                Select Your Product
+                            </p>
+                        </div>
                         <div className='w-1/2 lg:border'>
                             <ul className=''>
                             {products && products.map((item: any, index: number) => (
