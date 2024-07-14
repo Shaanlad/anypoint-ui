@@ -3,6 +3,7 @@ import Header from "../_components/header";
 import Footer from "../_components/footer";
 import { ChangeEventHandler, useState } from 'react';
 import { FormEvent } from 'react';
+import GooglePlaces from "../_components/googlePlaces";
 
 const BASE_URL = 'http://localhost:3030';
 
@@ -90,9 +91,14 @@ export default function Enroll(){
                         Verify Zip Code
                     </button>
                 </div> <br/><br/>
-                
+
+                {/* Google Autocomplete API Embedded Here */}
+                <GooglePlaces />
+
+                <br/><br/>
+
                 <form>
-                    <div className='block'>
+                    {/* <div className='block'>
                         <span className="block text-sm font-medium text-slate-700"> 
                         <p> Address </p> 
                         <input 
@@ -107,7 +113,8 @@ export default function Enroll(){
                             onChange={(e) => setAddress(e.target.value)}
                         />  
                         </span>
-                    </div> <br/><br/>
+                    </div> <br/> */}
+                    <br/>
 
                     <div className='block'>
                         <span className="block flex text-sm font-medium text-slate-700"> 
@@ -126,8 +133,7 @@ export default function Enroll(){
                                     <option>Moving</option>
                             </select>
                         </span>
-                    </div> <br/>
-
+                    </div> 
 
 
                     { cusSwitch ? ( 
