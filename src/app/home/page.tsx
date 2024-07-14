@@ -1,7 +1,7 @@
 
 'use client'
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEventHandler } from 'react';
 import { FormEvent } from 'react';
 import Header from '../_components/header';
 import Footer from '../_components/footer';
@@ -15,11 +15,12 @@ export default function Home(){
     const [isLoading, setLoading] = useState(true)
     const [showModal, setshowModal] = useState(false)
     const [error, setError] = useState(null);
+    const [showSelectedProductBlock, setShowSelectedProductBlock] = useState(false);
+    const [showSelectedProduct, setShowSelectedProduct] = useState('');
 
     const [productName, setProductName] = useState('');
     const [productDescription, setProductDescription] = useState('');
     const [productPrice, setProductPrice] = useState('');
-
  
     useEffect(() => {
     fetch('http://localhost:3030/product/')
@@ -29,8 +30,7 @@ export default function Home(){
         setLoading(false)
         console.log('products >> ', products)
     })
-    }, [])
-
+    }, [])        
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -61,6 +61,12 @@ export default function Home(){
             setLoading(false);
         }
     };
+
+    const handleProductSelect = (item: any) => {
+        setShowSelectedProductBlock(true);
+        console.log('Item clicked >> ', item)
+        setShowSelectedProduct(item);    
+    }
     
 
     if (isLoading) return <p>Loading...</p>
@@ -187,17 +193,40 @@ export default function Home(){
                 <br/><br/>
 
                 {showModal ? null : 
-                    <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm lg:border w-full flex relative"> 
-                        <div className='w-1/2 lg:border text-black'>
-                            <p className='absolute inset-x-0 top-0 w-1/2 text-3xl decoration-sky-600 hover:decoration-blue-400'>
+                    <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm w-full flex relative lg:border"> 
+                        <div className='w-1/2 text-black lg:border'>
+                            <p className='absolute inset-x-0 top-0 w-1/2 text-2xl text-center decoration-sky-600 hover:decoration-blue-400 my-6 mx-3 bg-blue-500 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
                                 Select Your Product
                             </p>
+                            {showSelectedProductBlock ? (
+                                <>                                    
+                                    <div className='absolute px-4 w-full inset-x-4 border-b border-gray-300 backdrop-blur-2xl dark:bg-white lg:static lg:border lg:bg-gray-200 lg:p-4 shadow-lg rounded'>
+                                        <p className='text-black font-bold underline underline-offset-2 '>
+                                            You Selected
+                                        </p> <br/>
+                                        <span className='text-black w-full'>
+                                        <p className='text-black w-full font-semibold'>
+                                            {showSelectedProduct.name}
+                                        </p>
+                                        <p>
+                                            {showSelectedProduct.description}
+                                        </p>
+                                        <p>
+                                            ${showSelectedProduct.price}
+                                        </p>    
+                                        </span>                                    
+                                    </div>                                    
+                                </> )
+                            : null }
                         </div>
-                        <div className='w-1/2 lg:border'>
+                        <div className='w-1/3'>
+
+                        </div>
+                        <div className='w-1/2'>
                             <ul className=''>
                             {products && products.map((item: any, index: number) => (
-                                <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-amber-300 my-6'>
-                                    <span>
+                                <li key={index} className='text-black fixed left-0 top-0 flex w-full justify-centre border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg hover:bg-amber-300 my-6 cursor-pointer'>
+                                    <span onClick={() => handleProductSelect(item)}>
                                         <p className='text-base font-semibold'>
                                             {item.name}
                                         </p>
@@ -214,9 +243,7 @@ export default function Home(){
                             </ul>
                         </div>                        
                      </div> }
-
-                 <br/><br/> 
-                            
+                 <br/><br/>                             
                 <Footer />
             </main>            
         </>
