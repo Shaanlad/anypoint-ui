@@ -75,9 +75,8 @@ export default function Home(){
     return (
         <>
             <main className="flex min-h-screen flex-col items-center justify-between p-24">
-                <br/>
                 <Header />
-                <br/><br/>
+                <br/>
                 <div className='w-8/12'>                    
                     <span className='float-right'>
                         <Link 
