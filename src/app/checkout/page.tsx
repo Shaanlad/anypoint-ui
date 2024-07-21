@@ -23,8 +23,32 @@ export default function Checkout(){
                         </p>                    
                     </span>
                 </div> */}
+                <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm w-full flex relative">
+                    <div className='text-black w-3/4'>
+                        <p className='absolute inset-x-0 top-0 w-1/2 text-xl text-center decoration-sky-600 hover:decoration-blue-400 my-6 mx-3 bg-amber-300 text-black items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-white-700 hover:border-blue-500 rounded'>
+                                    Your Order
+                        </p>
 
-                <Payment />
+                        <span className=''>
+                            <p className='text-black text-xl text-left px-2'> Test Test Test Test Test Test Test Test </p>
+                            <p className='text-black text-xl text-left px-2'> Test Test Test Test Test Test Test Test </p>
+                            <p className='text-black text-xl text-left px-2'> Test Test Test Test Test Test Test Test </p>
+                            <p className='text-black text-xl text-left px-2'> Test Test Test Test Test Test Test Test </p>
+                            <p className='text-black text-xl text-left px-2'> Test Test Test Test Test Test Test Test </p>
+                            <p className='text-black text-xl text-left px-2'> Test Test Test Test Test Test Test Test </p>
+                        </span>                  
+
+                    </div>
+                    
+                    {/* <div className='text-black w-1/5'>
+                        <p className='text-black text-xl text-left px-2'> Test Test Test Test Test Test Test Test </p>
+                    </div>      */}
+                        
+                    <div className='text-black w-2/4'>
+                    <br/>
+                        <Payment />
+                    </div>                    
+                </div>                
                 <br/>
                 <Footer />
                 </main>

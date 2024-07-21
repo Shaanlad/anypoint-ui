@@ -192,35 +192,36 @@ export default function Home(){
                 <br/><br/>
 
                 {showModal ? null : 
-                    <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm w-full flex relative lg:border"> 
-                        <div className='w-1/2 text-black lg:border'>
-                            <p className='absolute inset-x-0 top-0 w-1/2 text-2xl text-center decoration-sky-600 hover:decoration-blue-400 my-6 mx-3 bg-blue-500 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
+                    <div className="z-10 max-w-5xl items-center justify-between font-mono text-sm w-full flex relative"> 
+                        <div className='w-1/2 text-black'>
+                            <p className='absolute inset-x-0 top-0 w-1/3 text-2xl text-center decoration-sky-600 hover:decoration-blue-400 my-6 mx-3 bg-blue-500 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
                                 Select Your Product
                             </p>
                             {showSelectedProductBlock ? (
                                 <>                                    
-                                    <div className='absolute px-4 w-full inset-x-4 border-b border-gray-300 backdrop-blur-2xl dark:bg-white lg:static lg:border lg:bg-gray-200 lg:p-4 shadow-lg rounded'>
+                                    <div className='absolute px-4 inset-x-4 border-b border-gray-300 backdrop-blur-2xl dark:bg-white lg:static lg:border lg:bg-gray-200 lg:p-4 shadow-lg rounded w-3/4'>
+                                        <div className=''>
                                         <p className='text-black font-bold underline underline-offset-2 '>
                                             You Selected
                                         </p> <br/>
-                                        <span className='text-black w-full'>
-                                        <p className='text-black w-full font-semibold'>
-                                            {showSelectedProduct.name}
-                                        </p>
-                                        <p>
-                                            {showSelectedProduct.description}
-                                        </p>
-                                        <p>
-                                            ${showSelectedProduct.price}
-                                        </p>    
-                                        </span>                                    
-                                    </div>                                    
+                                        <span className=''>
+                                            <p className='font-semibold'>
+                                                {showSelectedProduct.name}
+                                            </p>
+                                            <p className=''>
+                                                {showSelectedProduct.description}
+                                            </p>
+                                            <p>
+                                                ${showSelectedProduct.price}
+                                            </p>
+                                        </span> 
+                                        </div>                    
+                                    </div>  
+                                                                     
                                 </> )
                             : null }
                         </div>
-                        <div className='w-1/3'>
 
-                        </div>
                         <div className='w-1/2'>
                             <ul className=''>
                             {products && products.map((item: any, index: number) => (

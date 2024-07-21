@@ -9,7 +9,6 @@ const BASE_URL = 'http://localhost:3030';
 
 export default function Enroll(){
 
-    const [verifyZipCode, setVerifyZipCode] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
@@ -19,14 +18,12 @@ export default function Enroll(){
     const [zipCode, setZipCode] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [cusSwitchOrMove, setCusSwitchOrMove] = useState('');
+    const [desiredSvcStartDate, setDesiredSvcStartDate] = useState(Date);
+    const [stdSwitchDate, setStdSwitchDate] = useState('');
+
     const [cusSwitch, setCusSwitch] = useState(false);
     const [cusStdSwitch, setCusStdSwitch] = useState(false);
     const [svcStartDatePicker, setSvcStartDatePicker] = useState(false);
-
-    function onVerifyZipCode() {
-        console.log('button clicked');
-        setVerifyZipCode(true);
-    }
 
     const onSwitchOrMoveChange = (selectedVal: string) => {
         setSvcStartDatePicker(false);
@@ -50,10 +47,31 @@ export default function Enroll(){
         if (selectedVal === 'Standard Switch Date' ) {
             setCusSwitch(true)
             setCusStdSwitch(true);
+
+            let today = new Date();
+            let duration = 5;
+            setDesiredSvcStartDate(today.setDate(today.getDate() + duration));
+            console.log(desiredSvcStartDate)
+
         } else if (selectedVal === 'Specific Date') {
             setCusSwitch(true)
             setSvcStartDatePicker(true);
         }
+    }
+
+    const validateSSN = (num: any) => {
+        console.log('inside validate ssn');
+
+        const regex = /^\d{3}-?\d{2}-?d{4}$/;
+        const valid = regex.test(num)
+        console.log('valid >> ', valid);
+        
+        if(valid) {
+            console.log('valid SSN');
+        } else {
+            console.log('invalid SSN');
+        }
+
     }
 
     return (
@@ -62,10 +80,8 @@ export default function Enroll(){
 
             <br/>
             <span className="block text-sm font-medium text-slate-700 font-mono">
-                <p className=""> In order to determine if your home/residence is serviceable, </p>
-                <p> please enter the zipcode of your area and click on 'Verify Zip Code' </p>                                  
+                <p className=""> In order to determine if your home/residence is serviceable, please enter your complete address in the box below. </p>
             </span>
-            <br></br>
             <div className="relative font-mono text-center w-1/2">
                 {/* <div className='block'>                    
                     <span className="block text-sm font-medium text-slate-700 flex"> 
@@ -135,7 +151,7 @@ export default function Enroll(){
                         </span>
                     </div> 
 
-
+                    <br/ >
                     { cusSwitch ? ( 
                         <>
                             <div className='block justify-center'>
@@ -165,7 +181,8 @@ export default function Enroll(){
                         <>
                             <div className='block text-black fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg lg:rounded-xl my-6'>
                                 <span className="block text-sm font-medium text-slate-700">
-                                <p className=""> Average 5 days to complete the process </p>                                  
+                                <p className=""> Average 5 days to complete the process </p> <br />
+                                <p className=""> Your completion date will be {} </p> <br />
                                 </span>
                             </div>
                         </>
@@ -183,9 +200,9 @@ export default function Enroll(){
                                     disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                     invalid:border-pink-500 invalid:text-pink-600
                                     focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
-                                    name="ssn"
-                                    value={ssn}
-                                    onChange={(e) => setSSN(e.target.value)}
+                                    name="desiredSvcStartDate"
+                                    value={desiredSvcStartDate}
+                                    onChange={(e) => setDesiredSvcStartDate(e.target.value)}
                                     maxLength="4"
                                 />  
                                 </span>
@@ -238,7 +255,7 @@ export default function Enroll(){
                                 name="phone"
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
-                                pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                                // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                                 maxLength="10"
                             />  
                         </span>
@@ -256,6 +273,7 @@ export default function Enroll(){
                                 value={ssn}
                                 onChange={(e) => setSSN(e.target.value)}
                                 maxLength="4"
+                                
                             />  
                         </span>
                     </div> <br/>
@@ -275,7 +293,7 @@ export default function Enroll(){
                                 onChange={(e) => setEmail(e.target.value)}
                             />  
                         </span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span className="block text-sm font-medium text-slate-700"> 
                             <p> Date of Birth </p> 
                             <input 
