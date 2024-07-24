@@ -1,6 +1,7 @@
 
 'use client'
 import Link from 'next/link';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useState, useEffect, MouseEventHandler } from 'react';
 import { FormEvent } from 'react';
 import Header from '../_components/header';
@@ -10,6 +11,14 @@ import Modal from '../_components/modal';
 const BASE_URL = 'http://localhost:3030';
 
 export default function Home(){
+
+    // const router = useRouter();
+    // const { firstname, lastname, email, isAdmin } = router.query;
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+    const firstname = searchParams.get('firstname');
+
+
 
     const [products, setProducts] = useState(null)
     const [isLoading, setLoading] = useState(true)
@@ -21,7 +30,7 @@ export default function Home(){
     const [productName, setProductName] = useState('');
     const [productDescription, setProductDescription] = useState('');
     const [productPrice, setProductPrice] = useState('');
- 
+
     useEffect(() => {
     fetch('http://localhost:3030/product/')
         .then((res) => res.json())
@@ -76,8 +85,16 @@ export default function Home(){
         <>
             <main className="flex min-h-screen flex-col items-center justify-between p-24">
                 <Header />
+
+                <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-lg float-right">
+                    <Link className="bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded float-right cursor-auto"
+                    href=""> 
+                    Welcome {firstname}
+                    </Link>
                 <br/>
-                <div className='w-8/12'>                    
+            </div>
+                <br/>
+                <div className='w-9/12'>                    
                     <span className='float-right'>
                         <Link 
                             className="bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded "

@@ -8,12 +8,13 @@ import Footer from './_components/footer';
 const BASE_URL = 'http://localhost:3030';
 
 export default function LandingPage() {
-
+  
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const router = useRouter();
+  
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,16 +22,23 @@ export default function LandingPage() {
     setError(null);
 
     try {
-      const response = await  fetch(`${BASE_URL}/auth/signin`, {
+      const response = await fetch(`${BASE_URL}/auth/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-      console.log('Form submitted >> ', response);
+      const data = await response.json();
+      console.log('Form submitted >> ', data);
       if(response.status == 201) {
-        router.push('/home');
+        router.push(
+          `/home?firstname=${encodeURIComponent(data.firstname)}`
+          // {
+          // pathname: '/home',
+          // query: {firstname: data.firstname, lastname: data.lastname, email: data.email, isAdmin: data.isAdmin },}
+      );
+      console.log('Success');
       } else {
         console.log('Incorrect Password or Error Encountered');
       }      

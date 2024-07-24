@@ -181,7 +181,7 @@ export default function Enroll(){
                         <>
                             <div className='block text-black fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 pb-6 pt-8 backdrop-blur-2xl dark:bg-white lg:static lg:w-auto lg:border lg:bg-gray-200 lg:p-4 shadow-lg lg:rounded-xl my-6'>
                                 <span className="block text-sm font-medium text-slate-700">
-                                <p className=""> Average 5 days to complete the process </p> <br />
+                                <p className=""> Average 5 days to complete the process.</p> 
                                 <p className=""> Your completion date will be {} </p> <br />
                                 </span>
                             </div>
