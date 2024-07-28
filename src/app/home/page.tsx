@@ -1,24 +1,16 @@
-
 'use client'
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import Header from '../_components/header';
 import Footer from '../_components/footer';
-import ProductBlock from '../_components/productBlock';
-import ProductCreationBlock from '../_components/productCreationBlock';
 
 export default function Home(){
     
     const searchParams = useSearchParams();
     const firstname = searchParams.get('firstname');
     const [showModal, setshowModal] = useState(false)
-        
-    const handleModalValueFromChildCmp = (modalValue: boolean) => {        
-        console.log('Inside handleModalValueFromChildCmp >> ', modalValue)
-        setshowModal(modalValue);
-    }
-    
+          
     return (
         <>
             <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -65,18 +57,10 @@ export default function Home(){
                             Create New Product
                         </button>
                     </span>
-                </div> <br/><br/>
-
-                {/* <-- Product Creation Block --> */}
-                { showModal ? (                     
-                    <ProductCreationBlock 
-                    onProductCreationModalDisplay={handleModalValueFromChildCmp} /> 
-                ) : null }
+                </div> 
+                <br/><br/>                
                 <br/><br/>
 
-                {/* <-- Product Selection Block -->  */}
-                {showModal ? null : <ProductBlock /> }
-                 <br/><br/>                             
                 <Footer />
             </main>            
         </>

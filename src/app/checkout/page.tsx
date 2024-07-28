@@ -6,10 +6,17 @@ import { FormEvent } from 'react';
 import Header from '../_components/header';
 import Footer from '../_components/footer';
 import Payment from '../_components/payment';
+import { useSearchParams } from 'next/navigation';
 
 const BASE_URL = 'http://localhost:3030';
 
 export default function Checkout(){
+
+    const searchParams = useSearchParams();
+    const firstName = searchParams.get('firstName');
+    const lastName = searchParams.get('lastName');
+    const phone = searchParams.get('phone');
+    const email = searchParams.get('email');
 
     return (
         <>
@@ -30,11 +37,13 @@ export default function Checkout(){
                         </p>
 
                         <span className='top-0'>
-                            <p className='text-black text-xl text-left px-4'> Test Test Test Test Test Test Test Test </p> <br /><br />
+                            <p className='text-black text-xl text-left px-4'> {firstName} {lastName} </p>
+                            <p className='text-black text-xl text-left px-4'> {phone} </p>
+                            <p className='text-black text-xl text-left px-4'> {email} </p>
+                            {/* <p className='text-black text-xl text-left px-4'> Test Test Test Test Test Test Test Test </p>
                             <p className='text-black text-xl text-left px-4'> Test Test Test Test Test Test Test Test </p>
                             <p className='text-black text-xl text-left px-4'> Test Test Test Test Test Test Test Test </p>
-                            <p className='text-black text-xl text-left px-4'> Test Test Test Test Test Test Test Test </p>
-                            <p className='text-black text-xl text-left px-4'> Test Test Test Test Test Test Test Test </p>
+                            <p className='text-black text-xl text-left px-4'> Test Test Test Test Test Test Test Test </p> */}
                         </span>
 
                     </div>  

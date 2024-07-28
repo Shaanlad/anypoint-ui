@@ -3,9 +3,17 @@ import Header from "../_components/header";
 import Footer from "../_components/footer";
 import { useState } from 'react';
 import GooglePlaces from "../_components/googlePlaces";
+import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import ProductBlock from '../_components/productBlock';
+import ProductCreationBlock from '../_components/productCreationBlock';
+import Link from "next/link";
+import { FormEvent } from 'react';
 
 export default function Enroll(){
 
+    const router = useRouter();
+    const [address, setAddress] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
@@ -16,6 +24,15 @@ export default function Enroll(){
     const [cusSwitch, setCusSwitch] = useState(false);
     const [cusStdSwitch, setCusStdSwitch] = useState(false);
     const [svcStartDatePicker, setSvcStartDatePicker] = useState(false);
+
+    const searchParams = useSearchParams();
+    const firstname = searchParams.get('firstname');
+    const [showModal, setshowModal] = useState(false)
+        
+    const handleModalValueFromChildCmp = (modalValue: boolean) => {        
+        console.log('Inside handleModalValueFromChildCmp >> ', modalValue)
+        setshowModal(modalValue);
+    }
 
     const onSwitchOrMoveChange = (selectedVal: string) => {
         setSvcStartDatePicker(false);
@@ -66,9 +83,47 @@ export default function Enroll(){
 
     }
 
+    const handleAddressFromChildCmp = (userAddress: string) => {
+        console.log('userAddress >> ', userAddress)
+    }
+
+    const checkoutParams = useParams<{firstName: string, lastName: string}>() 
+    // const handleProceedToPayment = () => {        
+    //     router.push('/checkout');  
+    //     `?firstName=${encodeURIComponent(firstName)&lastName=${encodeURIComponent(lastName)}`   
+    // }
+
+    const handleProceedToPayment = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        router.push('/checkout'); 
+    }
+
     return (
         <main className="w-full flex min-h-screen flex-col items-center justify-between p-24">
             <Header />
+
+            {/* <-- Product Creation Block --> */}
+            { showModal ? (                     
+                    <ProductCreationBlock 
+                    onProductCreationModalDisplay={handleModalValueFromChildCmp} /> 
+                ) : null }
+                <br/><br/>
+
+                {/* <-- Product Selection Block -->  */}
+                { showModal ? null : <ProductBlock /> }
+                 <br/><br/> 
+
+            {/* User Form Starts below  */}
+            <svg className="animate-bounce w-6 h-6 ...">
+
+            </svg>
+
+            {/* ================== User Form Below ================== */}
+            
+            <div className="divide-y divide-dotted w-3/4 items-center justify-center">
+                <div className="text-black">★</div>
+                <div className="text-black ">★</div>
+            </div>
 
             <br/>
             <span className="block text-sm font-medium text-slate-700 font-mono">
@@ -78,7 +133,7 @@ export default function Enroll(){
                 <br/><br/>
 
                 {/* Google Autocomplete API Code */}
-                <GooglePlaces />
+                <GooglePlaces onAddressData={handleAddressFromChildCmp}/>
 
                 <br/><br/>
 
@@ -160,8 +215,7 @@ export default function Enroll(){
                                 </span>
                             </div>
                         </>
-                        ) : null }    
-                    <br/><br/>
+                        ) : null }                    
 
                     <div className='block flex justify-center'>
                         <span className="block text-sm font-medium text-slate-700"> 
@@ -261,17 +315,20 @@ export default function Enroll(){
                             />  
                         </span>
                     </div> <br/><br/>
-
-                    <button 
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" 
-
-                        // bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded
-                        >
-                        Proceed to Make Payment
-                    </button>
+                    
+                    <Link 
+                        className="bg-red-500 hover:bg-red-400 text-white items-center justify-between font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded "
+                        href={{
+                            pathname: '/checkout',
+                            query: {
+                                firstName, lastName, phone, email
+                            },
+                        }}
+                        > Proceed to Make Payment
+                    </Link>
                 </form>
             </div>
-            <br/><br/>
+            <br/><br/><br/><br/>
 
             <Footer />
         </main>
