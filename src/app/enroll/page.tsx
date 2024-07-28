@@ -1,26 +1,18 @@
 'use client'
 import Header from "../_components/header";
 import Footer from "../_components/footer";
-import { ChangeEventHandler, useState } from 'react';
-import { FormEvent } from 'react';
+import { useState } from 'react';
 import GooglePlaces from "../_components/googlePlaces";
-
-const BASE_URL = 'http://localhost:3030';
 
 export default function Enroll(){
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [phone, setPhone] = useState('');
-    const [address, setAddress] = useState('');
-    const [ssn, setSSN] = useState('');
+    const [ssn4Digits, setSSN4Digits] = useState('');
     const [email, setEmail] = useState('');
-    const [zipCode, setZipCode] = useState('');
     const [dateOfBirth, setDateOfBirth] = useState('');
-    const [cusSwitchOrMove, setCusSwitchOrMove] = useState('');
     const [desiredSvcStartDate, setDesiredSvcStartDate] = useState(Date);
-    const [stdSwitchDate, setStdSwitchDate] = useState('');
-
     const [cusSwitch, setCusSwitch] = useState(false);
     const [cusStdSwitch, setCusStdSwitch] = useState(false);
     const [svcStartDatePicker, setSvcStartDatePicker] = useState(false);
@@ -83,55 +75,15 @@ export default function Enroll(){
                 <p className=""> In order to determine if your home/residence is serviceable, please enter your complete address in the box below. </p>
             </span>
             <div className="relative font-mono text-center w-1/2">
-                {/* <div className='block'>                    
-                    <span className="block text-sm font-medium text-slate-700 flex"> 
-                    <p className="mt-3 w-1/2"> Enter Zip Code </p> 
-                    <input 
-                    type="text" 
-                    className="w-1/2 mt-1 block px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                        focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                        disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-                        invalid:border-pink-500 invalid:text-pink-600
-                        focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
-                        name="zipCode"
-                        value={zipCode}
-                        onChange={(e) => setZipCode(e.target.value)}
-                        maxLength="5"
-                    />
-                    </span> <br/>
-                    <button
-                    className="bg-blue-500 hover:bg-amber-600 text-white font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-amber-500 rounded" 
-                    onClick={onVerifyZipCode}
-                    >
-                        Verify Zip Code
-                    </button>
-                </div>  */}
                 <br/><br/>
 
-                {/* Google Autocomplete API Embedded Here */}
+                {/* Google Autocomplete API Code */}
                 <GooglePlaces />
 
                 <br/><br/>
 
                 <form className="w-full items-center">
-                    {/* <div className='block'>
-                        <span className="block text-sm font-medium text-slate-700"> 
-                        <p> Address </p> 
-                        <input 
-                        type="text" 
-                        className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                            focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                            disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-                            invalid:border-pink-500 invalid:text-pink-600
-                            focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
-                            name="address"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        />  
-                        </span>
-                    </div> <br/> */}
                     <br/>
-
                     <div className='block justify-center'>
                         <span className="block flex text-sm font-medium text-slate-700"> 
                         <label htmlFor="serviceType" className="w-1/2 mt-3"> Switching or Moving? </label> &nbsp;&nbsp;&nbsp;
@@ -269,9 +221,9 @@ export default function Enroll(){
                                 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
                                 invalid:border-pink-500 invalid:text-pink-600
                                 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
-                                name="ssn"
-                                value={ssn}
-                                onChange={(e) => setSSN(e.target.value)}
+                                name="ssn4Digits"
+                                value={ssn4Digits}
+                                onChange={(e) => setSSN4Digits(e.target.value)}
                                 maxLength="4"
                                 
                             />  
@@ -310,58 +262,6 @@ export default function Enroll(){
                         </span>
                     </div> <br/><br/>
 
-                    {/* <div className='block flex'>
-                        <span className="block text-sm font-medium text-slate-700"> 
-                            <p> Email Address </p> 
-                            <input 
-                            type="email" 
-                            className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                                focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                                disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-                                invalid:border-pink-500 invalid:text-pink-600
-                                focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />  
-                            <p> Date of Birth </p> 
-                            <input 
-                            type="email" 
-                            className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                                focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                                disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-                                invalid:border-pink-500 invalid:text-pink-600
-                                focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
-                                name="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </span>
-                    </div> <br/><br/> */}
-
-                    {/* <div className='block'>
-                        <span className="block text-sm font-medium text-slate-700"> 
-                            <p> Address </p> 
-                            <input 
-                            type="text" 
-                            className="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-                                focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
-                                disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none
-                                invalid:border-pink-500 invalid:text-pink-600
-                                focus:invalid:border-pink-500 focus:invalid:ring-pink-500 text-black" 
-                                name="address"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                            />  
-                        </span>
-                    </div> <br/> */}
-
-                    {/* <button 
-                        className="bg-blue-500 hover:bg-green-600 text-white font-bold font-mono py-2 px-4 border-b-4 border-blue-700 hover:border-green-500 rounded" 
-                        >
-                        Save & Continue
-                    </button>
-                    &nbsp;&nbsp;&nbsp; */}
                     <button 
                         className="bg-red-500 hover:bg-red-600 text-white font-bold font-mono py-2 px-4 border-b-4 border-red-700 hover:border-red-500 rounded" 
 
