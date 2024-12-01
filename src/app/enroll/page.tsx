@@ -9,6 +9,7 @@ import ProductBlock from '../_components/productBlock';
 import ProductCreationBlock from '../_components/productCreationBlock';
 import Link from "next/link";
 import { FormEvent } from 'react';
+import { Suspense } from 'react'
 
 export default function Enroll(){
 
@@ -25,8 +26,10 @@ export default function Enroll(){
     const [cusStdSwitch, setCusStdSwitch] = useState(false);
     const [svcStartDatePicker, setSvcStartDatePicker] = useState(false);
 
-    const searchParams = useSearchParams();
-    const firstname = searchParams.get('firstname');
+    // Suspense Issue for useSearchParams() - firstname was not used
+    // const searchParams = useSearchParams();
+    // const firstname = searchParams.get('firstname');
+
     const [showModal, setshowModal] = useState(false)
         
     const handleModalValueFromChildCmp = (modalValue: boolean) => {        
@@ -57,10 +60,10 @@ export default function Enroll(){
             setCusSwitch(true)
             setCusStdSwitch(true);
 
-            let today = new Date();
-            let duration = 5;
-            setDesiredSvcStartDate(today.setDate(today.getDate() + duration));
-            console.log(desiredSvcStartDate)
+            // let today = new Date();
+            // let duration = 5;
+            // setDesiredSvcStartDate(today.setDate(today.getDate() + duration));
+            // console.log(desiredSvcStartDate)
 
         } else if (selectedVal === 'Specific Date') {
             setCusSwitch(true)
@@ -210,7 +213,7 @@ export default function Enroll(){
                                     name="desiredSvcStartDate"
                                     value={desiredSvcStartDate}
                                     onChange={(e) => setDesiredSvcStartDate(e.target.value)}
-                                    maxLength="4"
+                                    maxLength={4}
                                 />  
                                 </span>
                             </div>
@@ -262,7 +265,7 @@ export default function Enroll(){
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                                 // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                                maxLength="10"
+                                maxLength={10}
                             />  
                         </span>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -278,7 +281,7 @@ export default function Enroll(){
                                 name="ssn4Digits"
                                 value={ssn4Digits}
                                 onChange={(e) => setSSN4Digits(e.target.value)}
-                                maxLength="4"
+                                maxLength={4}
                                 
                             />  
                         </span>
@@ -333,4 +336,14 @@ export default function Enroll(){
             <Footer />
         </main>
     )
+    
 }
+
+// export function Searchbar() {
+//     return (
+//       // You could have a loading skeleton as the `fallback` too
+//       <Suspense>
+//         <Enroll />
+//       </Suspense>
+//     )
+//   }

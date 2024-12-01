@@ -5,7 +5,7 @@ import { FormEvent } from 'react';
 
 const BASE_URL = 'http://localhost:3030';
 
-export default function ProductCreationBlock({ onProductCreationModalDisplay }){ 
+export default function ProductCreationBlock({ onProductCreationModalDisplay } : {onProductCreationModalDisplay: any}){ 
 
     const [showCreateProductModal, setShowCreateProductModal] = useState(false)
     const [productName, setProductName] = useState('');

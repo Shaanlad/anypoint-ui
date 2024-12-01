@@ -35,13 +35,15 @@ export default function CheckoutForm() {
     });
 
     if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
+      // setMessage(error.message);
+      console.log('An unexpected error occured!')
     } 
     // else if(paymentIntent && paymentIntent.status === "succeeded") {
     //     setMessage("Payment Status : " + paymentIntent.status + "🎉")
     // }
     else {
-      setMessage("An unexpected error occured!");
+      // setMessage("An unexpected error occured!");
+      console.log('An unexpected error occured!')
     }
 
     setIsProcessing(false);

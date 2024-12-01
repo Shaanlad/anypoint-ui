@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import CheckoutForm from "./checkoutForm";
 // import CheckoutForm from "../checkout/page";
 
-const Payment = (props) => {
-    const [stripePromise, setStripePromise] = useState(null);
-    const [clientSecret, setClientSecret] = useState("")
+const Payment = (props: any) => {
+    const [stripePromise, setStripePromise] = useState<any | null>('');
+    const [clientSecret, setClientSecret] = useState('')
 
     const BASE_URL = 'http://localhost:3030';
 

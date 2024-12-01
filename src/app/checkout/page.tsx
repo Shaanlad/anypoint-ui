@@ -1,7 +1,7 @@
 
 'use client'
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { FormEvent } from 'react';
 import Header from '../_components/header';
 import Footer from '../_components/footer';
@@ -11,6 +11,7 @@ import { useSearchParams } from 'next/navigation';
 const BASE_URL = 'http://localhost:3030';
 
 export default function Checkout(){
+// const Checkout: React.FC = () => {    
 
     const searchParams = useSearchParams();
     const firstName = searchParams.get('firstName');
@@ -49,13 +50,14 @@ export default function Checkout(){
                     </div>  
                     <div className='text-black w-2/4'>
                     <br/>
+                        {/* Stripe Payment Block         */}
                         <Payment />
                     </div>               
                 </div>            
                 <br/>
-                <Footer />
-                </main>
-                
+            <Footer />
+            </main>
         </>
     )
-}
+};
+// export default Checkout;

@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from "react"
-import { LatLong } from '@/types';
+// import { LatLong } from '@/types';
 import { useJsApiLoader } from "@react-google-maps/api";
 import { Library } from "@googlemaps/js-api-loader";
 
 // function GooglePlaces(latlong: LatLong) {
-export default function GooglePlaces( {onAddressData} ){ 
+export default function GooglePlaces( {onAddressData}: {onAddressData: any}){ 
 
     const [map, setMap] = useState<google.maps.Map | null>(null)
     const [autocomplete, setAutoComplete] = useState<google.maps.places.Autocomplete | null>(null)
@@ -50,13 +50,14 @@ export default function GooglePlaces( {onAddressData} ){
             autocomplete.addListener('place_changed', () => {
                 const place = autocomplete.getPlace();
                 console.log('place >> ', place)
-                setSelectedAddress(place as string)
+                setSelectedAddress(place.formatted_address as string)
 
             })
         }
     })
 
     const handleSendAddress = () => {
+        console.log('selectedAddress >> ', selectedAddress)
         onAddressData(selectedAddress);
     }
     
@@ -79,7 +80,7 @@ export default function GooglePlaces( {onAddressData} ){
                         Your Selected Address 
                     </p><br />
                     <p className="text-black text-sm">
-                        {selectedAddress ? selectedAddress.formatted_address : null}
+                        {selectedAddress ? selectedAddress : null}
                     </p>                        
                 </span>
 

@@ -9,6 +9,7 @@ import Footer from '../_components/footer';
 export default function Home(){
     
     const BASE_URL = 'http://localhost:3030';
+    // let users: any[] = [];
 
     const [users, setUsers] = useState(null)
     const [isLoading, setLoading] = useState(true)
@@ -24,10 +25,9 @@ export default function Home(){
     useEffect(() => {
     fetch(`${BASE_URL}/auth/`)
         .then((res) => res.json())
-        .then((users) => {
-        setUsers(users)
+        .then((data) => {
+        setUsers(data)
         setLoading(false)
-        console.log('users >> ', users)
     })
     }, [])
 
